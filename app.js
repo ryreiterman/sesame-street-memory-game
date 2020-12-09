@@ -74,7 +74,7 @@ $(() => {
       }
     ];
 
-    // cardArray.sort(() => 0.5 - Math.random());
+    cardArray.sort(() => 0.5 - Math.random());
 
     const $board = $(".cards-wrapper");
     
@@ -109,11 +109,14 @@ $(() => {
         if($cardsChosen[0] === $cardsChosen[1]) {
             console.log($cardOneId);
             alert("Match!");
+            $cards.eq($cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
+            $cards.eq($cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
+            //Push matched cards to array, so can't be chosen again
             $matchedCards.push($cardsChosen);
             
             score +=10;
             $($player1Score).text(score);
-            console.log($matchedCards);
+
         }
         else {
             //flip them back over and display Sesame St logo card
