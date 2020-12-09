@@ -74,7 +74,7 @@ $(() => {
       }
     ];
 
-    cardArray.sort(() => 0.5 - Math.random());
+    // cardArray.sort(() => 0.5 - Math.random());
 
     const $board = $(".cards-wrapper");
     
@@ -86,6 +86,13 @@ $(() => {
     let $player1Score = $(".scoreP1");
     $($player1Score).text(0);
 
+    // let $time = $(".time");
+    let time = 10;
+    let $startTime = $(".time");
+    $startTime.text(time);
+
+    
+
     //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
     const buildBoard = () => {
         for(i = 0; i < cardArray.length; i++) {
@@ -96,8 +103,15 @@ $(() => {
             $card.on("click", flipCard);
             $board.append($card);
         }
+
+        // const countDownClock = () => {
+        //     time--;
+        //     $startTime.text(time);
+        // }
+        // setInterval(countDownClock, 1000);
         
     }
+    
 
     //check if cards match
     const checkForMatch = () => {
@@ -129,6 +143,10 @@ $(() => {
         //Clear out arrays so you can make another selection
         $cardsChosen = [];
         $cardsChosenId = [];
+
+        if ($matchedCards.length === cardArray.length/2) {
+            alert("You win!");
+        }
     }
 
     //flip cards
