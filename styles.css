@@ -1,4 +1,33 @@
+
+
+
 *, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  height: 760px;
+  border: 1px solid black;
+  margin: 2em auto 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* ------------- First version -------- */
+
+/* *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -33,10 +62,10 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, auto);
   /* repeat(auto-fill, minmax(250px, 1fr)); */
-  grid-gap: 1em;
+  /* grid-gap: 1em;
   background-color: #00b359;
   /* height: auto; */
-  padding: 2em;
+  /* padding: 2em;
   justify-content: center;
 }
 
@@ -64,13 +93,13 @@ h1 {
   justify-content: center;
   align-items: center;
   /* Anything to the back of us is hidden */
-  backface-visibility: hidden;
+  /* backface-visibility: hidden;
   transition: transform 500ms ease-in-out;
 }
 
-.cards img {
+.cards img { */
   /* object-fit: cover; */
-  border-radius: .5em;
+  /* border-radius: .5em;
 }
 
 
@@ -85,8 +114,7 @@ h1 {
 
 .card-front {
   transform: rotateY(180deg);
-}
+} */ 
 
 
-
-
+ 
