@@ -81,7 +81,9 @@ $(() => {
     let $cardsChosen = [];
     let $cardsChosenId = [];
     const $matchedCards = [];
-    const $player1Score = $(".scoreP1");
+
+    let score = 0;
+    let $player1Score = $(".scoreP1");
     $($player1Score).text(0);
 
     //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
@@ -108,14 +110,16 @@ $(() => {
             console.log($cardOneId);
             alert("Match!");
             $matchedCards.push($cardsChosen);
-            // $($player1Score).text(+=10);
+            
+            score +=10;
+            $($player1Score).text(score);
             console.log($matchedCards);
         }
         else {
             //flip them back over and display Sesame St logo card
             alert("Not a match! Try again");
-            $cards[$cardOneId].attr("src", "images/logo_200.jpg");
-            $cards[$cardTwoId].attr("src", "images/logo_200.jpg");
+            $cards.eq($cardsChosenId[0]).attr("src", "images/logo_200.jpg");
+            $cards.eq($cardsChosenId[1]).attr("src", "images/logo_200.jpg");
             
 
         }
