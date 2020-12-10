@@ -22,212 +22,246 @@
 // // ----------------------------------------------------- //
 
 $(() => {
+  const cardArray = [
+    {
+      name: "Cookie Monster",
+      img: "images/cookie_monster_200.jpg",
+    },
+    {
+      name: "Cookie Monster",
+      img: "images/cookie_monster_200.jpg",
+    },
+    {
+      name: "Elmo",
+      img: "images/elmo_200.jpg",
+    },
+    {
+      name: "Elmo",
+      img: "images/elmo_200.jpg",
+    },
+    // {
+    //   name: "Bert",
+    //   img: "images/bert_200.jpg",
+    // },
+    // {
+    //   name: "Bert",
+    //   img: "images/bert_200.jpg",
+    // },
+    // {
+    //   name: "Ernie",
+    //   img: "images/ernie_200.jpg",
+    // },
+    // {
+    //   name: "Ernie",
+    //   img: "images/ernie_200.jpg",
+    // },
+    // {
+    //   name: "Count",
+    //   img: "images/count_200.jpg",
+    // },
+    // {
+    //   name: "Count",
+    //   img: "images/count_200.jpg",
+    // },
+    // {
+    //   name: "Grover",
+    //   img: "images/grover_200.jpg",
+    // },
+    // {
+    //   name: "Grover",
+    //   img: "images/grover_200.jpg",
+    // },
+  ];
 
-    const cardArray = [
-      {
-        name: "Cookie Monster",
-        img: "images/cookie_monster_200.jpg"
-      },
-      {
-        name: "Cookie Monster",
-        img: "images/cookie_monster_200.jpg"
-      },
-      {
-        name: "Elmo",
-        img: "images/elmo_200.jpg"
-      },
-      {
-        name: "Elmo",
-        img: "images/elmo_200.jpg"
-      },
-      {
-        name: "Bert",
-        img: "images/bert_200.jpg"
-      },
-      {
-        name: "Bert",
-        img: "images/bert_200.jpg"
-      },
-      {
-        name: "Ernie",
-        img: "images/ernie_200.jpg"
-      },
-      {
-        name: "Ernie",
-        img: "images/ernie_200.jpg"
-      },
-      {
-        name: "Count",
-        img: "images/count_200.jpg"
-      },
-      {
-        name: "Count",
-        img: "images/count_200.jpg"
-      },
-      {
-        name: "Grover",
-        img: "images/grover_200.jpg"
-      },
-      {
-        name: "Grover",
-        img: "images/grover_200.jpg"
-      }
-    ];
+  // cardArray.sort(() => 0.5 - Math.random());
 
-    // cardArray.sort(() => 0.5 - Math.random());
+  const $board = $(".cards-wrapper");
 
-    const $board = $(".cards-wrapper");
-    
-    let $cardsChosen = [];
-    let $cardsChosenId = [];
-    const $matchedCards = [];
+  //Empty arrays to store cards and Ids of cards
+  let $cardsChosen = [];
+  let $cardsChosenId = [];
+  const $matchedCards = [];
 
-    let score = 0;
-    let $player1Score = $(".scoreP1");
-    $($player1Score).text(0);
+  //Sets scores for players
+  let score = 0;
+  let $player1Score = $(".scoreP1");
+  $($player1Score).text(0);
 
-    // let $time = $(".time");
+  //Countdown clock
+
     let time = 10;
     let $startTime = $(".time");
     $startTime.text(time);
 
-    
-
-    //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
-    const buildBoard = () => {
-        for(i = 0; i < cardArray.length; i++) {
-            let $card = $("<img>");
-            $card.attr("src", "images/logo_200.jpg");
-            $card.attr("data-id", i);
-            $card.attr("data-img", cardArray[i].img);
-            $card.on("click", flipCard);
-            $board.append($card);
-        }
-
-        // const countDownClock = () => {
-        //     time--;
-        //     $startTime.text(time);
-        // }
-        // setInterval(countDownClock, 1000);
-        
-    }
-    
-
-    //check if cards match
-    const checkForMatch = () => {
-        const $cards = $("img");
-        console.log($cards);
-        const $cardOneId = $($cardsChosenId[0]);
-        const $cardTwoId = $($cardsChosenId[1]);
-
-        if($cardsChosen[0] === $cardsChosen[1]) {
-            console.log($cardOneId);
-            alert("Match!");
-            $cards.eq($cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
-            $cards.eq($cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
-            //Push matched cards to array, so can't be chosen again
-            $matchedCards.push($cardsChosen);
-            
-            score +=10;
-            $($player1Score).text(score);
-
-        }
-        else {
-            //flip them back over and display Sesame St logo card
-            alert("Not a match! Try again");
-            $cards.eq($cardsChosenId[0]).attr("src", "images/logo_200.jpg");
-            $cards.eq($cardsChosenId[1]).attr("src", "images/logo_200.jpg");
-            
-
-        }
-        //Clear out arrays so you can make another selection
-        $cardsChosen = [];
-        $cardsChosenId = [];
-
-        if ($matchedCards.length === cardArray.length/2) {
-            alert("You win!");
-        }
-    }
-
-    //flip cards
-
-    const flipCard = event => {
-        
-
-        const $dataId = $(event.currentTarget).data("id");
-        console.log($dataId);
-
-        $cardsChosen.push(cardArray[$dataId].name);
-        console.log($cardsChosen);
-
-        $cardsChosenId.push($dataId);
-        console.log($cardsChosenId);
-
-        $("img").eq($dataId).attr("src", cardArray[$dataId].img);
-
-        if($cardsChosen.length === 2) {
-            setTimeout(checkForMatch, 500)
-        }
-    }
-    
-    buildBoard();
+    const timer = () => {
+      time--;
+      $startTime.text(`:${time}`);
+    };
+    let interval = setInterval(() => {
+      timer();
+      if (time <= 0) {
+        clearInterval(interval);
+      }
+    }, 1000);  
 
 
-//   const board = $("div#board");
-//   console.log(board);
-//   const data = [
-//     {
-//       name: "a",
-//       id: 0,
-//     },
-//     {
-//       name: "b",
-//       id: 1,
-//     },
-//     {
-//       name: "c",
-//       id: 2,
-//     },
-//     {
-//       name: "d",
-//       id: 3,
-//     },
-//     {
-//       name: "a",
-//       id: 4,
-//     },
-//     {
-//       name: "b",
-//       id: 5,
-//     },
-//     {
-//       name: "c",
-//       id: 6,
-//     },
-//     {
-//       name: "d",
-//       id: 7,
-//     },
-//   ];
-//   const buildBoard = (el, list) => {
-//     return el.html(
-//       list
-//         .map((item) => {
-//           return `<div data-name="${item.name}" id="${item.id}">${item.name}</div>`;
-//         })
-//         .join("")
-//     );
+
+//   let time = 10;
+//   let $startTime = $(".time");
+//   $startTime.text(time);
+
+//   const countDownClock = () => {
+//     time--;
+//     $startTime.text(time);
 //   };
-//   const $board = $(buildBoard(board, data));
-//   let valuesToCheck = [];
-//   for (let i = 0; i < $board.children().length; i++) {
-//     $board
-//       .children()
-//       .eq(i)
-//       .on("click", () => {
-//         valuesToCheck.push($board.children().eq(i));
-//       });
-//   }
+//   setInterval(() => {
+//     countDownClock();
+//   }, 1000);
+
+//   const stopClock = () => {
+//     if (time === 0) {
+//       time = 10;
+//     }
+//   };
+
+  //Displays gif when there is a winner
+  const userWins = () => {
+    const message = document.createElement("h1");
+    message.innerHTML = `You win!`;
+    document.body.appendChild(message);
+
+    const giphy = document.createElement("iframe");
+    giphy.src = "https://giphy.com/embed/YJDpfht5PU5i0";
+    document.querySelector(".cards-wrapper").appendChild(giphy);
+  };
+
+  //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
+  const buildBoard = () => {
+    for (i = 0; i < cardArray.length; i++) {
+      let $card = $("<img>");
+      $card.attr("src", "images/logo_200.jpg");
+      $card.attr("data-id", i);
+      $card.attr("data-img", cardArray[i].img);
+      $card.on("click", flipCard);
+      $board.append($card);
+    }
+  };
+
+  //check if cards match
+  const checkForMatch = () => {
+    const $cards = $("img");
+    console.log($cards);
+    const $cardOneId = $($cardsChosenId[0]);
+    const $cardTwoId = $($cardsChosenId[1]);
+
+    if ($cardsChosen[0] === $cardsChosen[1]) {
+      console.log($cardOneId);
+      alert("Match!");
+      $cards.eq($cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
+      $cards.eq($cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
+      //Push matched cards to array, so can't be chosen again
+      $matchedCards.push($cardsChosen);
+
+      score += 10;
+      $($player1Score).text(score);
+    } else {
+      //flip them back over and display Sesame St logo card
+      alert("Not a match! Try again");
+      $cards.eq($cardsChosenId[0]).attr("src", "images/logo_200.jpg");
+      $cards.eq($cardsChosenId[1]).attr("src", "images/logo_200.jpg");
+    }
+
+    //Clear out arrays so you can make another selection
+    $cardsChosen = [];
+    $cardsChosenId = [];
+
+    if ($matchedCards.length === cardArray.length / 2 && time > 0) {
+      alert("You found them all!");
+      userWins();
+    //   changePlayer();
+      // stopClock();
+    }
+    // else {
+    //   alert("You lose!");
+    // }
+  };
+
+  //flip cards
+
+  const flipCard = (event) => {
+    const $dataId = $(event.currentTarget).data("id");
+    console.log($dataId);
+
+    $cardsChosen.push(cardArray[$dataId].name);
+    console.log($cardsChosen);
+
+    $cardsChosenId.push($dataId);
+    console.log($cardsChosenId);
+
+    $("img").eq($dataId).attr("src", cardArray[$dataId].img);
+
+    if ($cardsChosen.length === 2) {
+      setTimeout(checkForMatch, 500);
+    }
+  };
+
+  buildBoard();
+
+  //   const board = $("div#board");
+  //   console.log(board);
+  //   const data = [
+  //     {
+  //       name: "a",
+  //       id: 0,
+  //     },
+  //     {
+  //       name: "b",
+  //       id: 1,
+  //     },
+  //     {
+  //       name: "c",
+  //       id: 2,
+  //     },
+  //     {
+  //       name: "d",
+  //       id: 3,
+  //     },
+  //     {
+  //       name: "a",
+  //       id: 4,
+  //     },
+  //     {
+  //       name: "b",
+  //       id: 5,
+  //     },
+  //     {
+  //       name: "c",
+  //       id: 6,
+  //     },
+  //     {
+  //       name: "d",
+  //       id: 7,
+  //     },
+  //   ];
+  //   const buildBoard = (el, list) => {
+  //     return el.html(
+  //       list
+  //         .map((item) => {
+  //           return `<div data-name="${item.name}" id="${item.id}">${item.name}</div>`;
+  //         })
+  //         .join("")
+  //     );
+  //   };
+  //   const $board = $(buildBoard(board, data));
+  //   let valuesToCheck = [];
+  //   for (let i = 0; i < $board.children().length; i++) {
+  //     $board
+  //       .children()
+  //       .eq(i)
+  //       .on("click", () => {
+  //         valuesToCheck.push($board.children().eq(i));
+  //       });
+  //   }
 });
 
 
