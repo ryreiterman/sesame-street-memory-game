@@ -7,13 +7,54 @@
   padding: 0;
 }
 
-.cards-wrapper {
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-size: 1.5rem;
+  font-family: 'Short Stack', cursive;
+  background-color: #e6e6e6;
+}
+
+h1 {
+  text-align: center;
+}
+
+.game-data {
+  padding: .5em;
   display: flex;
-  flex-wrap: wrap;
-  width: 1000px;
-  height: 760px;
-  border: 1px solid black;
-  margin: 2em auto 0;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+}
+
+.scoreP1, .scoreP2, .time {
+  font-size: 2rem;
+}
+
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  background-color: #00b359;
+  justify-content: center;
+}
+
+.cards {
+  width: 200px;
+  height: 250px;
+  border: 2px solid black;
+  border-radius: .5em;
+  padding: 1em;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  background-color: #e6e6e6;
+}
+
+#winning-message {
+  display: none;
+  width: 100vw;
+  height: 100vh;
 }
 
 

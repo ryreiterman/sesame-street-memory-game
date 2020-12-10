@@ -39,38 +39,38 @@ $(() => {
       name: "Elmo",
       img: "images/elmo_200.jpg",
     },
-    // {
-    //   name: "Bert",
-    //   img: "images/bert_200.jpg",
-    // },
-    // {
-    //   name: "Bert",
-    //   img: "images/bert_200.jpg",
-    // },
-    // {
-    //   name: "Ernie",
-    //   img: "images/ernie_200.jpg",
-    // },
-    // {
-    //   name: "Ernie",
-    //   img: "images/ernie_200.jpg",
-    // },
-    // {
-    //   name: "Count",
-    //   img: "images/count_200.jpg",
-    // },
-    // {
-    //   name: "Count",
-    //   img: "images/count_200.jpg",
-    // },
-    // {
-    //   name: "Grover",
-    //   img: "images/grover_200.jpg",
-    // },
-    // {
-    //   name: "Grover",
-    //   img: "images/grover_200.jpg",
-    // },
+    {
+      name: "Bert",
+      img: "images/bert_200.jpg",
+    },
+    {
+      name: "Bert",
+      img: "images/bert_200.jpg",
+    },
+    {
+      name: "Ernie",
+      img: "images/ernie_200.jpg",
+    },
+    {
+      name: "Ernie",
+      img: "images/ernie_200.jpg",
+    },
+    {
+      name: "Count",
+      img: "images/count_200.jpg",
+    },
+    {
+      name: "Count",
+      img: "images/count_200.jpg",
+    },
+    {
+      name: "Grover",
+      img: "images/grover_200.jpg",
+    },
+    {
+      name: "Grover",
+      img: "images/grover_200.jpg",
+    }
   ];
 
   // cardArray.sort(() => 0.5 - Math.random());
@@ -95,7 +95,7 @@ $(() => {
 
     const timer = () => {
       time--;
-      $startTime.text(`:${time}`);
+      $startTime.text(`${time}`);
     };
     let interval = setInterval(() => {
       timer();
@@ -104,42 +104,24 @@ $(() => {
       }
     }, 1000);  
 
-
-
-//   let time = 10;
-//   let $startTime = $(".time");
-//   $startTime.text(time);
-
-//   const countDownClock = () => {
-//     time--;
-//     $startTime.text(time);
-//   };
-//   setInterval(() => {
-//     countDownClock();
-//   }, 1000);
-
-//   const stopClock = () => {
-//     if (time === 0) {
-//       time = 10;
-//     }
-//   };
-
   //Displays gif when there is a winner
-  const userWins = () => {
-    const message = document.createElement("h1");
-    message.innerHTML = `You win!`;
-    document.body.appendChild(message);
+//   const userWins = () => {
+//     const message = document.createElement("h1");
+//     message.innerHTML = `You win!`;
+//     document.body.appendChild(message);
 
-    const giphy = document.createElement("iframe");
-    giphy.src = "https://giphy.com/embed/YJDpfht5PU5i0";
-    document.querySelector(".cards-wrapper").appendChild(giphy);
-  };
+//     const giphy = document.createElement("iframe");
+//     giphy.src =
+//       "https://giphy.com/gifs/dancing-sesame-street-elmo-x35xLpMQVVtUQ";
+//     document.querySelector("#winning-message").appendChild(giphy);
+//   };
 
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
   const buildBoard = () => {
     for (i = 0; i < cardArray.length; i++) {
       let $card = $("<img>");
       $card.attr("src", "images/logo_200.jpg");
+      $card.addClass("cards");
       $card.attr("data-id", i);
       $card.attr("data-img", cardArray[i].img);
       $card.on("click", flipCard);
@@ -150,7 +132,6 @@ $(() => {
   //check if cards match
   const checkForMatch = () => {
     const $cards = $("img");
-    console.log($cards);
     const $cardOneId = $($cardsChosenId[0]);
     const $cardTwoId = $($cardsChosenId[1]);
 
@@ -163,7 +144,7 @@ $(() => {
       $matchedCards.push($cardsChosen);
 
       score += 10;
-      $($player1Score).text(score);
+    //   $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
       alert("Not a match! Try again");
@@ -175,15 +156,14 @@ $(() => {
     $cardsChosen = [];
     $cardsChosenId = [];
 
-    if ($matchedCards.length === cardArray.length / 2 && time > 0) {
+    if ($matchedCards.length === cardArray.length / 2 && time !== 0) {
       alert("You found them all!");
-      userWins();
+    //   userWins();
     //   changePlayer();
-      // stopClock();
     }
-    // else {
+    else {
     //   alert("You lose!");
-    // }
+    }
   };
 
   //flip cards
