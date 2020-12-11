@@ -144,13 +144,14 @@ const state = {
     p1: player1,
     p2: player2
 }
+
 let turn = 'p1';
 
 state[turn];
 
 // turn ='p2';
 
-console.log(this.score);
+console.log(player1.score);
 
 
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
@@ -181,6 +182,7 @@ console.log(this.score);
       matchedCards.push(cardsChosen);
 
       score += 10;
+      //This is a problem! :)
       $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
