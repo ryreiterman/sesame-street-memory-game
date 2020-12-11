@@ -83,10 +83,10 @@ $(() => {
 
   const $board = $(".cards-wrapper");
 
-  //Empty arrays to store cards and Ids of cards
-  let $cardsChosen = [];
-  let $cardsChosenId = [];
-  const $matchedCards = [];
+  //Empty arrays to store cards chosen and Ids of cards
+  let cardsChosen = [];
+  let cardsChosenId = [];
+  const matchedCards = [];
 
   //Sets scores for players
   let score = 0;
@@ -150,12 +150,8 @@ state[turn];
 
 // turn ='p2';
 
-console.log(turn.score);
+console.log(this.score);
 
-
-
-console.log(turn);
-console.log(state);
 
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
   const buildBoard = () => {
@@ -173,31 +169,31 @@ console.log(state);
   //check if cards match
   const checkForMatch = () => {
     const $cards = $("img");
-    const $cardOneId = $($cardsChosenId[0]);
-    const $cardTwoId = $($cardsChosenId[1]);
+    const $cardOneId = $(cardsChosenId[0]);
+    const $cardTwoId = $(cardsChosenId[1]);
 
-    if ($cardsChosen[0] === $cardsChosen[1]) {
+    if (cardsChosen[0] === cardsChosen[1]) {
       console.log($cardOneId);
       alert("Match!");
-      $cards.eq($cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
-      $cards.eq($cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
+      $cards.eq(cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
+      $cards.eq(cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
       //Push matched cards to array, so can't be chosen again
-      $matchedCards.push($cardsChosen);
+      matchedCards.push(cardsChosen);
 
       score += 10;
       $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
       alert("Not a match! Try again");
-      $cards.eq($cardsChosenId[0]).attr("src", "images/logo_200.jpg");
-      $cards.eq($cardsChosenId[1]).attr("src", "images/logo_200.jpg");
+      $cards.eq(cardsChosenId[0]).attr("src", "images/logo_200.jpg");
+      $cards.eq(cardsChosenId[1]).attr("src", "images/logo_200.jpg");
     }
 
     //Clear out arrays so you can make another selection
-    $cardsChosen = [];
-    $cardsChosenId = [];
+    cardsChosen = [];
+    cardsChosenId = [];
 
-    if ($matchedCards.length === cardArray.length / 2 && time !== 0) {
+    if (matchedCards.length === cardArray.length / 2 && time !== 0) {
       alert("You found them all!");
     //   userWins();
     //   changePlayer();
@@ -213,15 +209,15 @@ console.log(state);
     const $dataId = $(event.currentTarget).data("id");
     console.log($dataId);
 
-    $cardsChosen.push(cardArray[$dataId].name);
-    console.log($cardsChosen);
+    cardsChosen.push(cardArray[$dataId].name);
+    console.log(cardsChosen);
 
-    $cardsChosenId.push($dataId);
-    console.log($cardsChosenId);
+    cardsChosenId.push($dataId);
+    console.log(cardsChosenId);
 
     $("img").eq($dataId).attr("src", cardArray[$dataId].img);
 
-    if ($cardsChosen.length === 2) {
+    if (cardsChosen.length === 2) {
       setTimeout(checkForMatch, 500);
     }
   };
