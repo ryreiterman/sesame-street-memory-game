@@ -111,8 +111,11 @@ $(() => {
       timer();
       if (time <= 0) {
         clearInterval(interval);
+        //GAME OVER FUNCTION
+        // alert("Game over!");
+
       }
-    }, 1000);  
+    }, 1000); 
 
   //Displays gif when there is a winner
 //   const userWins = () => {
@@ -127,12 +130,15 @@ $(() => {
 //   };
 
 class Player {
-    constructor(name) {
+    constructor(name, score) {
         this.name = name;
+        this.score = score;
     }
 }
-const player1 = new Player('1');
-const player2 = new Player('2');
+const player1 = new Player('1', 0);
+const player2 = new Player('2', 0);
+
+
 
 const state = {
     p1: player1,
@@ -142,7 +148,7 @@ let turn = 'p1';
 
 state[turn];
 
-turn ='p2';
+// turn ='p2';
 
 console.log(turn.score);
 
