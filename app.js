@@ -39,41 +39,47 @@ $(() => {
       name: "Elmo",
       img: "images/elmo_200.jpg",
     },
-    {
-      name: "Bert",
-      img: "images/bert_200.jpg",
-    },
-    {
-      name: "Bert",
-      img: "images/bert_200.jpg",
-    },
-    {
-      name: "Ernie",
-      img: "images/ernie_200.jpg",
-    },
-    {
-      name: "Ernie",
-      img: "images/ernie_200.jpg",
-    },
-    {
-      name: "Count",
-      img: "images/count_200.jpg",
-    },
-    {
-      name: "Count",
-      img: "images/count_200.jpg",
-    },
-    {
-      name: "Grover",
-      img: "images/grover_200.jpg",
-    },
-    {
-      name: "Grover",
-      img: "images/grover_200.jpg",
-    }
+    // {
+    //   name: "Bert",
+    //   img: "images/bert_200.jpg",
+    // },
+    // {
+    //   name: "Bert",
+    //   img: "images/bert_200.jpg",
+    // },
+    // {
+    //   name: "Ernie",
+    //   img: "images/ernie_200.jpg",
+    // },
+    // {
+    //   name: "Ernie",
+    //   img: "images/ernie_200.jpg",
+    // },
+    // {
+    //   name: "Count",
+    //   img: "images/count_200.jpg",
+    // },
+    // {
+    //   name: "Count",
+    //   img: "images/count_200.jpg",
+    // },
+    // {
+    //   name: "Grover",
+    //   img: "images/grover_200.jpg",
+    // },
+    // {
+    //   name: "Grover",
+    //   img: "images/grover_200.jpg",
+    // }
   ];
 
-  // cardArray.sort(() => 0.5 - Math.random());
+  //Shuffle Cards with Fisher-Yates method
+//  for (i = cardArray.length - 1; i > 0; i--) {
+//    j = Math.floor(Math.random() * i);
+//    k = cardArray[i];
+//    cardArray[i] = cardArray[j];
+//    cardArray[j] = k;
+//  } 
 
   const $board = $(".cards-wrapper");
 
@@ -84,8 +90,12 @@ $(() => {
 
   //Sets scores for players
   let score = 0;
+
   let $player1Score = $(".scoreP1");
-  $($player1Score).text(0);
+  $($player1Score).text(score);
+
+  let $player2Score = $(".scoreP2");
+  $($player2Score).text(score);
 
   //Countdown clock
 
@@ -116,6 +126,31 @@ $(() => {
 //     document.querySelector("#winning-message").appendChild(giphy);
 //   };
 
+class Player {
+    constructor(name) {
+        this.name = name;
+    }
+}
+const player1 = new Player('1');
+const player2 = new Player('2');
+
+const state = {
+    p1: player1,
+    p2: player2
+}
+let turn = 'p1';
+
+state[turn];
+
+turn ='p2';
+
+console.log(turn.score);
+
+
+
+console.log(turn);
+console.log(state);
+
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
   const buildBoard = () => {
     for (i = 0; i < cardArray.length; i++) {
@@ -144,7 +179,7 @@ $(() => {
       $matchedCards.push($cardsChosen);
 
       score += 10;
-    //   $($player1Score).text(score);
+      $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
       alert("Not a match! Try again");
