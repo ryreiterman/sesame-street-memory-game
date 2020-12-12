@@ -39,66 +39,59 @@ $(() => {
       name: "Elmo",
       img: "images/elmo_200.jpg",
     },
-    // {
-    //   name: "Bert",
-    //   img: "images/bert_200.jpg",
-    // },
-    // {
-    //   name: "Bert",
-    //   img: "images/bert_200.jpg",
-    // },
-    // {
-    //   name: "Ernie",
-    //   img: "images/ernie_200.jpg",
-    // },
-    // {
-    //   name: "Ernie",
-    //   img: "images/ernie_200.jpg",
-    // },
-    // {
-    //   name: "Count",
-    //   img: "images/count_200.jpg",
-    // },
-    // {
-    //   name: "Count",
-    //   img: "images/count_200.jpg",
-    // },
-    // {
-    //   name: "Grover",
-    //   img: "images/grover_200.jpg",
-    // },
-    // {
-    //   name: "Grover",
-    //   img: "images/grover_200.jpg",
-    // }
+    {
+      name: "Bert",
+      img: "images/bert_200.jpg",
+    },
+    {
+      name: "Bert",
+      img: "images/bert_200.jpg",
+    },
+    {
+      name: "Ernie",
+      img: "images/ernie_200.jpg",
+    },
+    {
+      name: "Ernie",
+      img: "images/ernie_200.jpg",
+    },
+    {
+      name: "Count",
+      img: "images/count_200.jpg",
+    },
+    {
+      name: "Count",
+      img: "images/count_200.jpg",
+    },
+    {
+      name: "Grover",
+      img: "images/grover_200.jpg",
+    },
+    {
+      name: "Grover",
+      img: "images/grover_200.jpg",
+    }
   ];
 
 //   Shuffle Cards with Fisher-Yates method
-//  for (i = cardArray.length - 1; i > 0; i--) {
-//    j = Math.floor(Math.random() * i);
-//    k = cardArray[i];
-//    cardArray[i] = cardArray[j];
-//    cardArray[j] = k;
-//  } 
+ shuffleCards = () => {
+  for (i = cardArray.length - 1; i > 0; i--) {
+   j = Math.floor(Math.random() * i);
+   k = cardArray[i];
+   cardArray[i] = cardArray[j];
+   cardArray[j] = k;
+ } 
+}
 
-  const $board = $(".cards-wrapper");
-
+  
   //Empty arrays to store cards chosen and Ids of cards
   let cardsChosen = [];
   let cardsChosenId = [];
   const matchedCards = [];
 
-  //Sets scores for players
-
-//   let $player1Score = $(".scoreP1");
-//   $($player1Score).text(player1.score);
-
-//   let $player2Score = $(".scoreP2");
-//   $($player2Score).text(player2.score);
-
   //Countdown clock
 
-    let time = 10;
+    let time = 30;
     let $startTime = $(".time");
     $startTime.text(time);
 
@@ -110,48 +103,13 @@ $(() => {
       timer();
       if (time <= 0) {
         clearInterval(interval);
-        //GAME OVER FUNCTION
         alert("Game over!");
       }
     }, 1000); 
 
-class Player {
-    constructor(name, score) {
-        this.name = name;
-        this.score = score;
-    }
-    checkForMatch() {
-        return true;
-    }
-    updateScore() {
-        return true;
-    }
-}
-const player1 = new Player('1', 0);
-const player2 = new Player('2', 0);
-
-
-
-const state = {
-    p1: player1,
-    p2: player2
-}
-
-let currentPlayer = 'p1';
-
-console.log(state[currentPlayer]);
-
-// currentPlayer ='p2';
-
-let $player1Score = $(".scoreP1");
-let $updatedP1Score = player1.score;
-$($player1Score).text(`${$updatedP1Score}`);
-
-let $player2Score = $(".scoreP2");
-let $updatedP2Score = player2.score;
-$($player2Score).text(`${$updatedP1Score}`);
 
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
+  const $board = $(".cards-wrapper");
   const buildBoard = () => {
     for (i = 0; i < cardArray.length; i++) {
       let $card = $("<img>");
@@ -164,17 +122,6 @@ $($player2Score).text(`${$updatedP1Score}`);
     }
   };
 
-  const updateScore = () => {
-
-      if (currentPlayer === "p1") {
-        $updatedP1Score += 10;
-        return($updatedP1Score);
-      } else if (currentPlayer === "p2") {
-        $updatedP2Score += 10;
-        return $updatedP2Score;
-      }
-  }
-
   //check if cards match
   const checkForMatch = () => {
     const $cards = $("img");
@@ -186,11 +133,6 @@ $($player2Score).text(`${$updatedP1Score}`);
       //Push matched cards to array, so can't be chosen again
       matchedCards.push(cardsChosen);
 
-      updateScore();
-
-      //This is a problem! :)
-    //   score += 10;
-    //   $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
       alert("Not a match! Try again");
@@ -202,11 +144,9 @@ $($player2Score).text(`${$updatedP1Score}`);
     cardsChosen = [];
     cardsChosenId = [];
 
-    if (matchedCards.length === cardArray.length / 2 && time !== 0) {
-      alert("You found them all!");
+    if (matchedCards.length === cardArray.length / 2) {
+      alert("Hooray! You matched all the cards!");
       clearInterval(interval);
-    //   userWins();
-    //   changePlayer();
     }
     else {
     //   alert("You lose!");
@@ -229,85 +169,24 @@ $($player2Score).text(`${$updatedP1Score}`);
     }
   };
 
-//   const gameRound = () => {
-//       while ($updatedP1Score > 0 || $updatedP2Score > 0 && time > 0) {
-//       if ($updatedP1Score === 10) {
-//           alert("Boom");
-//           break
-//       }
-//       else {
-//           alert("Boom2")
-//           break
-//       }
-//   }
-// }
-// gameRound(turn);
 
-  buildBoard();
+const startGame = () => {
+     buildBoard();
+     shuffleCards();
+}
+
+// const replayGame = () => {
+//     shuffleCards();
+//     timer();
+
+// }
+
+startGame()
+
+ 
 
 });
 
 
-
-
-// // First version ----------------------------------------------------- //
-
-// //Game Class
-// class MatchGame {
-//     constructor(time, cards) {
-//         this.cardsArray = cards;
-//         this.time = time;
-//         this.timeLeft = time;
-//         this.timer = document.getElementsByClassName("time");
-//         this.scoreP1 = document.getElementsByClassName("scoreP1");
-//         this.scoreP2 = document.getElementsByClassName("scoreP2");
-
-//     }
-//     //Properties that are set for each game/round
-//     startGame() {
-//         this.checkCards = null;
-//         //Will have to add score from each round, but for now will start at 0
-//         this.scoreP1 = 0;
-//         this.scoreP2 = 0;
-//         //Time resets 
-//         this.timeLeft = time;
-//         //When cards are matched, push to this empty array, then check total cards array to see if you win
-//         this.matchedCards = [];
-//         this.shuffleCards();
-//     }
-
-//     flipCard(card) {
-//         card.classList.add("visible");
-
-//     }
-//     // canFlipCard(card) {
-
-//     // }
-
-//     shuffleCards() {
-//         //Fisher-Yates method of shuffling cards backwards
-//         for(let i = this.cardsArray.length - 1; i > 0; i--) {
-//             let randomIndex = Math.floor(Math.random() * (i + 1));
-//             this.cardsArray[randomIndex].style.order = i;
-//             this.cardsArray[i].style.order = randomIndex;
-//         }
-//     }
-    
-
-// }
-// //End of MatchgGame Class
-
-
-// //Creates array from HTML elements
-// let cards = Array.from(document.getElementsByClassName('cards'));
-
-// //Loop over each card in the array and add event listener to flip cards
-// cards.forEach(card => {
-//     card.addEventListener('click', () => {
-//         game.flipCard(card);
-//     })
-// })
-
-// let game = new MatchGame(100, cards);
     
 
