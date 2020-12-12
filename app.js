@@ -73,7 +73,7 @@ $(() => {
     // }
   ];
 
-  //Shuffle Cards with Fisher-Yates method
+//   Shuffle Cards with Fisher-Yates method
 //  for (i = cardArray.length - 1; i > 0; i--) {
 //    j = Math.floor(Math.random() * i);
 //    k = cardArray[i];
@@ -89,13 +89,12 @@ $(() => {
   const matchedCards = [];
 
   //Sets scores for players
-  let score = 0;
 
-  let $player1Score = $(".scoreP1");
-  $($player1Score).text(score);
+//   let $player1Score = $(".scoreP1");
+//   $($player1Score).text(player1.score);
 
-  let $player2Score = $(".scoreP2");
-  $($player2Score).text(score);
+//   let $player2Score = $(".scoreP2");
+//   $($player2Score).text(player2.score);
 
   //Countdown clock
 
@@ -112,8 +111,7 @@ $(() => {
       if (time <= 0) {
         clearInterval(interval);
         //GAME OVER FUNCTION
-        // alert("Game over!");
-
+        alert("Game over!");
       }
     }, 1000); 
 
@@ -134,6 +132,12 @@ class Player {
         this.name = name;
         this.score = score;
     }
+    checkForMatch() {
+        return true;
+    }
+    updateScore() {
+        return true;
+    }
 }
 const player1 = new Player('1', 0);
 const player2 = new Player('2', 0);
@@ -145,14 +149,19 @@ const state = {
     p2: player2
 }
 
-let turn = 'p1';
+let currentPlayer = 'p1';
 
-state[turn];
+console.log(state[currentPlayer]);
 
-// turn ='p2';
+// currentPlayer ='p2';
 
-console.log(player1.score);
+let $player1Score = $(".scoreP1");
+let $updatedP1Score = player1.score;
+$($player1Score).text(`${$updatedP1Score}`);
 
+let $player2Score = $(".scoreP2");
+let $updatedP2Score = player2.score;
+$($player2Score).text(`${$updatedP1Score}`);
 
   //Loop over each card in the array, create img element for each card, add logo to each card, add event listener to each card, append to cards-wrapper
   const buildBoard = () => {
@@ -167,23 +176,33 @@ console.log(player1.score);
     }
   };
 
+  const updateScore = () => {
+
+      if (currentPlayer === "p1") {
+        $updatedP1Score += 10;
+        return($updatedP1Score);
+      } else if (currentPlayer === "p2") {
+        $updatedP2Score += 10;
+        return $updatedP2Score;
+      }
+  }
+
   //check if cards match
   const checkForMatch = () => {
     const $cards = $("img");
-    const $cardOneId = $(cardsChosenId[0]);
-    const $cardTwoId = $(cardsChosenId[1]);
 
     if (cardsChosen[0] === cardsChosen[1]) {
-      console.log($cardOneId);
       alert("Match!");
       $cards.eq(cardsChosenId[0]).attr("src", "images/letter_x_200.jpg");
       $cards.eq(cardsChosenId[1]).attr("src", "images/letter_x_200.jpg");
       //Push matched cards to array, so can't be chosen again
       matchedCards.push(cardsChosen);
 
-      score += 10;
+      updateScore();
+
       //This is a problem! :)
-      $($player1Score).text(score);
+    //   score += 10;
+    //   $($player1Score).text(score);
     } else {
       //flip them back over and display Sesame St logo card
       alert("Not a match! Try again");
@@ -197,6 +216,7 @@ console.log(player1.score);
 
     if (matchedCards.length === cardArray.length / 2 && time !== 0) {
       alert("You found them all!");
+      clearInterval(interval);
     //   userWins();
     //   changePlayer();
     }
@@ -205,17 +225,14 @@ console.log(player1.score);
     }
   };
 
-  //flip cards
+  //
 
   const flipCard = (event) => {
     const $dataId = $(event.currentTarget).data("id");
-    console.log($dataId);
 
     cardsChosen.push(cardArray[$dataId].name);
-    console.log(cardsChosen);
 
     cardsChosenId.push($dataId);
-    console.log(cardsChosenId);
 
     $("img").eq($dataId).attr("src", cardArray[$dataId].img);
 
@@ -224,63 +241,22 @@ console.log(player1.score);
     }
   };
 
+//   const gameRound = () => {
+//       while ($updatedP1Score > 0 || $updatedP2Score > 0 && time > 0) {
+//       if ($updatedP1Score === 10) {
+//           alert("Boom");
+//           break
+//       }
+//       else {
+//           alert("Boom2")
+//           break
+//       }
+//   }
+// }
+// gameRound(turn);
+
   buildBoard();
 
-  //   const board = $("div#board");
-  //   console.log(board);
-  //   const data = [
-  //     {
-  //       name: "a",
-  //       id: 0,
-  //     },
-  //     {
-  //       name: "b",
-  //       id: 1,
-  //     },
-  //     {
-  //       name: "c",
-  //       id: 2,
-  //     },
-  //     {
-  //       name: "d",
-  //       id: 3,
-  //     },
-  //     {
-  //       name: "a",
-  //       id: 4,
-  //     },
-  //     {
-  //       name: "b",
-  //       id: 5,
-  //     },
-  //     {
-  //       name: "c",
-  //       id: 6,
-  //     },
-  //     {
-  //       name: "d",
-  //       id: 7,
-  //     },
-  //   ];
-  //   const buildBoard = (el, list) => {
-  //     return el.html(
-  //       list
-  //         .map((item) => {
-  //           return `<div data-name="${item.name}" id="${item.id}">${item.name}</div>`;
-  //         })
-  //         .join("")
-  //     );
-  //   };
-  //   const $board = $(buildBoard(board, data));
-  //   let valuesToCheck = [];
-  //   for (let i = 0; i < $board.children().length; i++) {
-  //     $board
-  //       .children()
-  //       .eq(i)
-  //       .on("click", () => {
-  //         valuesToCheck.push($board.children().eq(i));
-  //       });
-  //   }
 });
 
 
