@@ -115,18 +115,6 @@ $(() => {
       }
     }, 1000); 
 
-  //Displays gif when there is a winner
-//   const userWins = () => {
-//     const message = document.createElement("h1");
-//     message.innerHTML = `You win!`;
-//     document.body.appendChild(message);
-
-//     const giphy = document.createElement("iframe");
-//     giphy.src =
-//       "https://giphy.com/gifs/dancing-sesame-street-elmo-x35xLpMQVVtUQ";
-//     document.querySelector("#winning-message").appendChild(giphy);
-//   };
-
 class Player {
     constructor(name, score) {
         this.name = name;
