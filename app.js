@@ -175,12 +175,6 @@ const startGame = () => {
      shuffleCards();
 }
 
-// const replayGame = () => {
-//     shuffleCards();
-//     timer();
-
-// }
-
 startGame()
 
  
